@@ -2,9 +2,11 @@ package database
 
 import (
 	"fmt"
-	"log"
 	"os"
 
+	"github.com/DigantaChauduri06/commons"
+	"github.com/DigantaChauduri06/models"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -20,11 +22,10 @@ func SetUp() {
 	username := os.Getenv("username")
 	password := os.Getenv("password")
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, username, password, dbName, port)
-	log.Println(dsn)
-	// db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	// commons.CheckError(err)
-	// db.AutoMigrate(models.Book{})
-	// DB = db
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	commons.CheckError(err)
+	db.AutoMigrate(models.Book{})
+	DB = db
 }
 
 func GetDB() *gorm.DB {
