@@ -1,17 +1,18 @@
 package database
 
 import (
-	"github.com/DigantaChauduri06/commons"
 	"github.com/DigantaChauduri06/models"
 	"gorm.io/gorm"
 )
 
-func GetBooks(db *gorm.DB) ([]models.Book) {
+func GetBooks(db *gorm.DB) ([]models.Book, error) {
 	books := []models.Book{}
 	query := db.Select("books.*")
 	err := query.Find(&books).Error
-	commons.CheckError(err)
-	return books
+	if err != nil {
+		return nil,err
+	}
+	return books, nil
 }
 
 func GetBookById(db *gorm.DB, id string) models.Book {

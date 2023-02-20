@@ -14,9 +14,7 @@ import (
 var DB *gorm.DB
 
 func SetUp() {
-	
-	
-	host := "localhost:5432"
+	host := "localhost"
 	port := "5432"
 	dbName := "book"
 	username := os.Getenv("username")
